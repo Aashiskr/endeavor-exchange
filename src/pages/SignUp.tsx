@@ -19,6 +19,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useAuth } from "@/context/AuthContext";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -43,6 +44,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { login } = useAuth();
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -58,8 +60,12 @@ const SignUp = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
     // In a real app, here you would call an API to register the user
+    login({ 
+      name: values.name,
+      email: values.email 
+    });
     toast.success("Account created successfully!");
-    setTimeout(() => navigate("/signin"), 1500);
+    setTimeout(() => navigate("/"), 1500);
   }
 
   return (

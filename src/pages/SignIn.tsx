@@ -19,6 +19,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useAuth } from "@/context/AuthContext";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -33,6 +34,7 @@ const formSchema = z.object({
 const SignIn = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const { login } = useAuth();
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -46,6 +48,10 @@ const SignIn = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
     // In a real app, here you would call an API to authenticate the user
+    login({ 
+      name: "User", // In a real app, this would come from the API
+      email: values.email 
+    });
     toast.success("Signed in successfully!");
     setTimeout(() => navigate("/"), 1500);
   }
