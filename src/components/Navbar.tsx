@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Search, Menu, Sparkles } from "lucide-react";
+import { Search, Menu, Sparkles, Home } from "lucide-react";
 import { useState } from "react";
 
 const Navbar = () => {
@@ -22,6 +22,10 @@ const Navbar = () => {
           </Link>
           
           <nav className="hidden md:flex items-center gap-6">
+            <Link to="/" className="text-gray-600 hover:text-marketplace-purple transition-colors relative group">
+              Home
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-marketplace-purple transition-all group-hover:w-full"></span>
+            </Link>
             <Link to="/projects" className="text-gray-600 hover:text-marketplace-purple transition-colors relative group">
               Browse Projects
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-marketplace-purple transition-all group-hover:w-full"></span>
@@ -90,6 +94,13 @@ const Navbar = () => {
             </div>
             
             <nav className="flex flex-col gap-3">
+              <Link 
+                to="/" 
+                className="text-gray-600 hover:text-marketplace-purple transition-colors py-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Home
+              </Link>
               <Link 
                 to="/projects" 
                 className="text-gray-600 hover:text-marketplace-purple transition-colors py-2"
